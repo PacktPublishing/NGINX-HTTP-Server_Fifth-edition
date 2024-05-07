@@ -1,0 +1,19 @@
+---
+# tasks file for nginx_install
+- name: Install nginx
+  apt:
+    name: nginx
+    state: latest
+    update_cache: yes
+- name: Copy nginx configuration file
+  copy:
+    src: nginx.conf
+    dest: /etc/nginx/nginx.conf
+    owner: root
+    group: root
+    mode: '0644'
+  notify: restart nginx
+- name: Install unattended-upgrades
+  apt:
+    name: unattended-upgrades
+    state: present
